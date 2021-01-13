@@ -10,5 +10,14 @@
                                     FROM [ToDo].[dbo].[Autor]
                                     ORDER BY [Nome]
                                     ";
+
+        public const string QueryById = @"
+                                    SELECT 
+	                                     [AggregateId]
+	                                    ,[Nome]
+	                                    ,[Ativo] 
+                                    FROM [ToDo].[dbo].[Autor]
+                                        WHERE [Id] = @AutorId;
+                                    ";
     }
 }

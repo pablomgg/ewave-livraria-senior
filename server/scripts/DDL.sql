@@ -19,6 +19,8 @@ GO
 --DROP TABLE [dbo].[Autor];
 --DROP TABLE [dbo].[Usuario];
 --DROP TABLE [dbo].[InstituicaoDeEnsino];
+--DROP TABLE [dbo].[PessoaFisica];
+--DROP TABLE [dbo].[PessoaJuridica];
 --DROP TABLE [dbo].[Pessoa];
 --DROP TABLE [dbo].[PessoaTipo];
 --DROP TABLE [dbo].[Cidade];
@@ -35,34 +37,59 @@ GO
 
 CREATE TABLE [dbo].[Pessoa] 
 (
-	[Id] int NOT NULL IDENTITY(1,1),
+	[Id] INT NOT NULL IDENTITY(1,1),
 	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
 	[Nome] VARCHAR(255) NOT NULL,
 	[TipoId] INT NOT NULL,
 	[DataCriacao] DATETIME NOT NULL,
 	[Ativo] BIT NOT NULL
-	CONSTRAINT [PK_Pessoa] PRIMARY KEY CLUSTERED ([Id] ASC)
+	CONSTRAINT [PK_Pessoa] PRIMARY KEY ([Id])
 	CONSTRAINT [FK_Pessoa_PessoaTipo] FOREIGN KEY ([TipoId]) REFERENCES [dbo].[PessoaTipo]([id])
 )
 GO
 
-CREATE TABLE [dbo].[InstituicaoDeEnsino] 
-(
+CREATE TABLE [dbo].[PessoaFisica] 
+( 
+	[PessoaId] INT NOT NULL,
+	[Cpf] VARCHAR(11) NOT NULL UNIQUE,
+	[Nome] VARCHAR(120) NOT NULL,
+	CONSTRAINT [PK_PessoaFisica] PRIMARY KEY ([PessoaId]),
+	CONSTRAINT [FK_PessoaFisica_Pessoa] FOREIGN KEY ([PessoaId]) REFERENCES [dbo].[Pessoa]([Id])
+)
+GO
+
+CREATE TABLE [dbo].[PessoaJuridica] 
+( 
 	[PessoaId] INT NOT NULL,
 	[Cnpj] VARCHAR(14) NOT NULL UNIQUE,
-	CONSTRAINT [PK_InstituicaoDeEnsino] PRIMARY KEY ([PessoaId]) ON [PRIMARY],
-	CONSTRAINT [FK_InstituicaoDeEnsino_Pessoa] FOREIGN KEY ([PessoaId]) REFERENCES [dbo].[Pessoa]([Id])
+	[RazaoSocial] VARCHAR(80) NOT NULL,
+	[NomeFantasia] VARCHAR(100) NULL,
+	CONSTRAINT [PK_PessoaJuridica] PRIMARY KEY ([PessoaId]),
+	CONSTRAINT [FK_PessoaJuridica_Pessoa] FOREIGN KEY ([PessoaId]) REFERENCES [dbo].[Pessoa]([Id])
+)
+GO
+
+CREATE TABLE [dbo].[InstituicaoDeEnsino] 
+( 
+	[Id] INT NOT NULL IDENTITY(1,1),
+	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
+	[PessoaAggregateId] UNIQUEIDENTIFIER NOT NULL,
+	[Ativo] BIT NOT NULL,
+	CONSTRAINT [PK_InstituicaoDeEnsino] PRIMARY KEY ([Id]),
+	CONSTRAINT [FK_InstituicaoDeEnsino_Pessoa] FOREIGN KEY ([PessoaAggregateId]) REFERENCES [dbo].[Pessoa]([AggregateId])
 )
 GO
 
 CREATE TABLE [dbo].[Usuario] 
-(
-	[PessoaId] INT NOT NULL,
-	[Cpf] VARCHAR(11) NOT NULL UNIQUE,
-	[InstituicaoDeEnsinoId] INT NOT NULL,
-	CONSTRAINT [PK_Usuario] PRIMARY KEY ([PessoaId] ASC) ON [PRIMARY],
-	CONSTRAINT [FK_Usuario_Pessoa] FOREIGN KEY ([PessoaId]) REFERENCES [Pessoa]([Id]),
-	CONSTRAINT [FK_Usuario_InstituicaoDeEnsino] FOREIGN KEY ([InstituicaoDeEnsinoId]) REFERENCES [InstituicaoDeEnsino]([PessoaId])
+( 
+	[Id] INT NOT NULL IDENTITY(1,1),
+	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
+	[PessoaAggregateId] UNIQUEIDENTIFIER NOT NULL,
+	[InstituicaoDeEnsinoAggregateId] UNIQUEIDENTIFIER NOT NULL,
+	[Ativo] BIT NOT NULL,
+	CONSTRAINT [PK_Usuario] PRIMARY KEY ([Id]),
+	CONSTRAINT [FK_Usuario_Pessoa] FOREIGN KEY ([PessoaAggregateId]) REFERENCES [Pessoa]([AggregateId]),
+	CONSTRAINT [FK_Usuario_InstituicaoDeEnsino] FOREIGN KEY ([InstituicaoDeEnsinoAggregateId]) REFERENCES [InstituicaoDeEnsino]([AggregateId])
 )
 GO
 
@@ -101,7 +128,7 @@ CREATE TABLE [dbo].[Livro]
 	[Ativo] BIT NOT NULL,
 	[AutorId] INT NOT NULL,
 	[GeneroId] INT NOT NULL,
-	CONSTRAINT [PK_Livro] PRIMARY KEY ([Id] ASC),
+	CONSTRAINT [PK_Livro] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Livro_Autor] FOREIGN KEY ([AutorId]) REFERENCES [Autor]([Id]),
 	CONSTRAINT [FK_Livro_Genero] FOREIGN KEY ([GeneroId]) REFERENCES [Genero]([Id])
 )
@@ -125,7 +152,7 @@ CREATE TABLE [dbo].[Pais]
 (
 	[Id] INT NOT NULL,
 	[Nome] VARCHAR(240) NOT NULL,
-	CONSTRAINT [PK_Pais] PRIMARY KEY ([Id]) ON [PRIMARY]
+	CONSTRAINT [PK_Pais] PRIMARY KEY ([Id])
 )
 GO
 
@@ -135,7 +162,7 @@ CREATE TABLE [dbo].[Estado]
 	[Nome] VARCHAR(240) NOT NULL,
 	[Sigla] VARCHAR(2) NOT NULL UNIQUE,
 	[PaisId] INT NOT NULL,
-	CONSTRAINT [PK_Estado] PRIMARY KEY ([Id]) ON [PRIMARY],
+	CONSTRAINT [PK_Estado] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Estado_Pais] FOREIGN KEY ([PaisId]) REFERENCES [Pais]([Id])
 )
 GO
@@ -145,7 +172,7 @@ CREATE TABLE [dbo].[Cidade]
 	[Id] INT NOT NULL,
 	[Nome] VARCHAR(240) NOT NULL,
 	[EstadoId] INT NOT NULL,
-	CONSTRAINT [PK_Cidade] PRIMARY KEY ([Id]) ON [PRIMARY],
+	CONSTRAINT [PK_Cidade] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Cidade_Estado] FOREIGN KEY ([EstadoId]) REFERENCES [Estado]([Id]))
 GO
 
@@ -153,9 +180,9 @@ CREATE TABLE [dbo].[Endereco] (
 	[PessoaId] INT NOT NULL,
 	[Cep] VARCHAR(8) NOT NULL,
 	[Logradouro] VARCHAR(180) NOT NULL,
-	[Numero] INT NOT NULL,
+	[Numero] VARCHAR(6) NULL,
 	[Bairro] VARCHAR(180) NOT NULL,
-	[Complemento] VARCHAR(240) NOT NULL,
+	[Complemento] VARCHAR(255) NULL,
 	[CidadeId] INT NOT NULL
   CONSTRAINT [PK_Endereco] PRIMARY KEY ([PessoaId]) ON [PRIMARY],
   CONSTRAINT [FK_Endereco_Pessoa] FOREIGN KEY ([PessoaId]) REFERENCES [Pessoa]([Id]),

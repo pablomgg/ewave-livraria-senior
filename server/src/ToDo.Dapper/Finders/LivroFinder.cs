@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Dasync.Collections;
 using Microsoft.Extensions.Options;
 using ToDo.Dapper.Abstractions.Finders;
 using ToDo.Dapper.Abstractions.Models;
@@ -16,8 +18,24 @@ namespace ToDo.Dapper.Finders
 
         public async Task<IEnumerable<LivroModel>> ObterTodosAsync()
         {
-            using (var conn = CreateConnection())
-                return await conn.QueryAsync<LivroModel>(LivroQueries.Query);
+            using var conn = CreateConnection();
+            var livros = await conn.QueryAsync<LivroModel>(LivroQueries.Query);
+
+            string query = $" {AutorQueries.QueryById} " +
+                           $" {GeneroQueries.QueryById} ";
+
+            await livros.ParallelForEachAsync(async livro => await ObterInformacoesDoLivroAsync(livro, query));
+
+            return livros;
+        }
+
+        private async Task ObterInformacoesDoLivroAsync(LivroModel livro, string query)
+        {
+            using var conn = CreateConnection();
+            using var multi = await conn.QueryMultipleAsync(query, new { AutorId = livro.AutorId, GeneroId = livro.GeneroId });
+
+            livro.Autor = await multi.ReadSingleOrDefaultAsync<AutorModel>();
+            livro.Genero = await multi.ReadSingleOrDefaultAsync<GeneroModel>();
         }
     }
 }

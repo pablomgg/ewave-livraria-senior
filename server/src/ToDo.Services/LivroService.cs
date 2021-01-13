@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ToDo.Domain.Entities;
+using ToDo.Domain.Entities.Livro;
 using ToDo.Domain.Exceptions;
 using ToDo.Domain.Services;
 using ToDo.Infra.Core;

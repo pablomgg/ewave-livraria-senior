@@ -1,7 +1,7 @@
 ﻿USE [ToDo];
 
 INSERT INTO [dbo].[PessoaTipo] ([Id], [Nome]) VALUES
-(1, 'Pessoa Fisíca'), (2, 'Pessoa Jurídica')
+(1, 'Pessoa Física'), (2, 'Pessoa Jurídica')
 GO
 
 INSERT INTO [dbo].[Pais]([Id], [Nome]) VALUES
@@ -9,10 +9,12 @@ INSERT INTO [dbo].[Pais]([Id], [Nome]) VALUES
 GO
 
 INSERT INTO [dbo].[EmailTipo]([Id], [Nome]) VALUES
-(1, 'Principal'), (2, 'Particular'), (3, 'Comercial')
+(1, 'Particular'), (2, 'Comercial') 
+GO 
 
 INSERT INTO [dbo].[TelefoneTipo]([Id], [Nome]) VALUES
 (1, 'Celular'), (2, 'Residencial'), (3, 'Comercial')
+GO 
 
 INSERT INTO [dbo].[Estado] ([Id], [Nome], [Sigla], [PaisId]) VALUES
 (1, 'Acre', 'AC', 1),
@@ -42,8 +44,7 @@ INSERT INTO [dbo].[Estado] ([Id], [Nome], [Sigla], [PaisId]) VALUES
 (25, 'Sergipe',  'SE', 1),
 (26, 'São Paulo',  'SP', 1),
 (27, 'Tocantins',  'TO', 1)
-GO
-
+GO 
 
 INSERT INTO [dbo].[Cidade]([Id], [Nome], [EstadoId]) VALUES
 (377,'Assis Brasil', 1),

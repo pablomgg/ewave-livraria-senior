@@ -3,7 +3,7 @@ using ToDo.Domain.Exceptions;
 using ToDo.Infra.Core;
 using ToDo.Infra.Extensions;
 
-namespace ToDo.Domain.Entities
+namespace ToDo.Domain.Entities.Livro
 {
     public class Livro : Entity
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ToDo.Domain.Entities;
+using ToDo.Domain.Entities.Livro;
 
 namespace ToDo.EF.Data.Mapping
 {

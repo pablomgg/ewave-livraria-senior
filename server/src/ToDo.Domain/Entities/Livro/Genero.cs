@@ -3,22 +3,22 @@ using ToDo.Domain.Exceptions;
 using ToDo.Infra.Core;
 using ToDo.Infra.Extensions;
 
-namespace ToDo.Domain.Entities
+namespace ToDo.Domain.Entities.Livro
 {
-    public class Autor : Entity
+    public class Genero : Entity
     {
-        public string Nome { get; private set; }
+        public string Nome { get; set; }
 
         private const int TAMANHO_NOME = 180;
 
-        public Autor() { }
+        public Genero() { }
 
-        public Autor(Guid aggregateId, string nome)
+        public Genero(Guid aggregateId, string nome)
         {
             Validar(nome);
 
             AggregateId = aggregateId;
-            Nome = nome;
+            Nome = nome.ToUpper();
             DataCriacao = DateTime.Now;
             Ativo = true;
         }
@@ -30,11 +30,8 @@ namespace ToDo.Domain.Entities
             Nome = nome.ToUpper();
         }
 
-        public void InativarOuAtivar()
-        {
-            Ativo = !Ativo;
-        }
-
+        public void InativarOuAtivar() => Ativo = !Ativo;
+ 
         private void Validar(string nome)
         {
             if (nome.IsNullOrWhiteSpaceAndTheSizeIsLargerThan(TAMANHO_NOME)) throw new CampoMaiorQuePermitidoException(nameof(nome), TAMANHO_NOME);
