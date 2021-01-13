@@ -1,23 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Dapper;
 using Microsoft.Extensions.Options;
 using ToDo.Dapper.Abstractions.Finders;
+using ToDo.Dapper.Abstractions.Models;
 using ToDo.Dapper.Core;
+using ToDo.Dapper.Queries;
 using ToDo.Infra.Settings;
 
 namespace ToDo.Dapper.Finders
 {
     public class LivroFinder : FinderBase, ILivroFinder
     {
-        public string stringConection { get; }
+        public LivroFinder(IOptions<AppSettings> appSettings) : base(appSettings?.Value?.Data?.ToDo) { }
 
-        public LivroFinder(IOptions<AppSettings> appSettings) : base(appSettings?.Value?.Data?.ToDo)
+        public async Task<IEnumerable<LivroModel>> ObterTodosAsync()
         {
-            stringConection = appSettings?.Value?.Data?.ToDo;
-        }
-
-        public async Task<dynamic> ObterTodosAsync()
-        { 
-            return await Task.FromResult(stringConection);
+            using (var conn = CreateConnection())
+                return await conn.QueryAsync<LivroModel>(LivroQueries.Query);
         }
     }
 }

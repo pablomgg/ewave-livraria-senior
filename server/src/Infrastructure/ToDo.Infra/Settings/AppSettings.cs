@@ -5,8 +5,10 @@ namespace ToDo.Infra.Settings
 {
     public class AppSettings
     {
-        public DataProvider Data { get; }
-        public SwaggerProvider Swagger { get; }
+        public DataProvider Data { get; set; }
+        public SwaggerProvider Swagger { get; set; }
+
+        public AppSettings() { }
 
         public AppSettings(IConfiguration configuration)
         {

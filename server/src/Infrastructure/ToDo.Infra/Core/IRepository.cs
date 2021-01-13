@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ToDo.Infra.Core
@@ -10,5 +11,6 @@ namespace ToDo.Infra.Core
         Task<TEntity> GetByAsync<TEntity>(Guid aggregateId) where TEntity : Entity;
         Task DeleteAsync<T>(Guid aggregateId) where T : class;
         Task DeleteAsync<T>(int id) where T : class;
+        Task<bool> ExistAsync<TEntity>(Expression<Func<TEntity, bool>> filter) where TEntity : Entity;
     }
 }

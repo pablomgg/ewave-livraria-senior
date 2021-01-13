@@ -4,8 +4,8 @@ using ToDo.Dapper.Abstractions.Models;
 
 namespace ToDo.Dapper.Abstractions.Finders
 {
-    public interface ILivroFinder
+    public interface IAutorFinder
     {
-        Task<IEnumerable<LivroModel>> ObterTodosAsync();
+        Task<IEnumerable<AutorModel>> ObterTodosAsync();
     }
 }

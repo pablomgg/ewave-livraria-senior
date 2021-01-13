@@ -10,12 +10,18 @@ namespace ToDo.Application.DI
     {
         public static IServiceCollection RegisterModules(this IServiceCollection services, AppSettings appSettings)
         {
+            services.Configure<AppSettings>(app =>
+            {
+                app.Swagger = appSettings.Swagger;
+                app.Data = appSettings.Data;
+            });
+
             services
                 .Context(appSettings.Data)
                 .Repositories()
                 .Finders()
                 .Services();
-
+             
             return services;
         }
     }

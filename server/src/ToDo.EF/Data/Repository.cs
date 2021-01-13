@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Infra.Core;
@@ -49,6 +50,11 @@ namespace ToDo.EF.Data
             {
                 _dbContext.Remove(entity);
             }
+        }
+
+        public async Task<bool> ExistAsync<TEntity>(Expression<Func<TEntity, bool>> filter) where TEntity : Entity
+        {
+            return await _dbContext.Set<TEntity>().AsNoTracking().AnyAsync(filter);
         }
     }
 }

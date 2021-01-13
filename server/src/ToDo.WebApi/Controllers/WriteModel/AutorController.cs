@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ToDo.Domain.Services;
 using ToDo.WebApi.Configurations;
@@ -7,55 +10,55 @@ using ToDo.WebApi.Dtos;
 
 namespace ToDo.WebApi.Controllers.WriteModel
 {
-    [Route("livro")]
-    public class LivroController : WriteApiBase
+    [Route("autor")]
+    public class AutorController : WriteApiBase
     {
-        public LivroController(IDomainService domainService) : base(domainService) { }
+        public AutorController(IDomainService domainService) : base(domainService) { }
 
         /// <summary>
-        /// Adicionar um livro.
+        /// Adicionar um autor(a).
         /// </summary>
         /// <param name="dto">Parâmetros esperados.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AdicionarAsync([FromBody] LivroDto dto)
+        public async Task<IActionResult> AdicionarAsync([FromBody] AutorDto dto)
         {
             await DomainService
                 .NewGuid(out var aggregateId)
-                .Execute<ILivroService>(async service => await service.AdicionarAsync(aggregateId, dto.autorAggregateId, dto.generoAggregateId, dto.Titulo, dto.Capa, dto.Sinopse, dto.Paginas))
+                .Execute<IAutorService>(async service => await service.AdicionarAsync(aggregateId, dto.Nome))
                 .CommitAsync();
 
             return Ok(aggregateId);
         }
 
         /// <summary>
-        /// Alterar um livro.
+        /// Alterar um autor(a).
         /// </summary>
         /// <param name="aggregateId">Parâmetro esperado.</param>
         /// <param name="dto">Parâmetros esperados.</param>
         /// <returns></returns>
         [HttpPut]
         [Route("{aggregateId:guid}")]
-        public async Task<IActionResult> AlterarAsync(Guid aggregateId, [FromBody] LivroDto dto)
+        public async Task<IActionResult> AlterarAsync(Guid aggregateId, [FromBody] AutorDto dto)
         {
-            await DomainService 
-                .Execute<ILivroService>(async service => await service.AlterarAsync(aggregateId, dto.autorAggregateId, dto.generoAggregateId, dto.Titulo, dto.Capa, dto.Sinopse, dto.Paginas))
+            await DomainService
+                .Execute<IAutorService>(async service => await service.AlterarAsync(aggregateId, dto.Nome))
                 .CommitAsync();
 
             return Ok(aggregateId);
         }
 
         /// <summary>
-        /// Inativar ou Ativar um livro.
+        /// Inativar ou Ativar um autor(a).
         /// </summary>
         /// <param name="aggregateId">Parâmetro esperado.</param>
         /// <returns></returns>
-        [HttpPut] 
+        [HttpPut]
         [Route("inativar-ou-ativar/{aggregateId:guid}")]
         public async Task<IActionResult> InativarOuAtivarAsync(Guid aggregateId)
         {
             await DomainService
-                .Execute<ILivroService>(async service => await service.InativarOuAtivarAsync(aggregateId))
+                .Execute<IAutorService>(async service => await service.InativarOuAtivarAsync(aggregateId))
                 .CommitAsync();
 
             return Ok(aggregateId);

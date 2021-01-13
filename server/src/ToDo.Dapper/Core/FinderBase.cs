@@ -8,10 +8,7 @@ namespace ToDo.Dapper.Core
     {
         protected readonly string ConnectionString;
 
-        public FinderBase(string connectionString)
-        {
-            ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-        }
+        public FinderBase(string connectionString) => ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
 
         protected virtual IDbConnection CreateConnection() => new SqlConnection(ConnectionString);
     }
