@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using Dapper;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dapper;
-using Microsoft.Extensions.Options;
 using ToDo.Dapper.Abstractions.Finders;
 using ToDo.Dapper.Abstractions.Models;
 using ToDo.Dapper.Core;

@@ -22,6 +22,9 @@ namespace ToDo.Services
         {
             Validar(razaoSocial);
 
+            var existeCnpjCadastrado = await _repository.ExistAsync<Pessoa>(x => x.PessoaJuridica.Cnpj == cnpj);
+            if (existeCnpjCadastrado) throw new PessoaCnpjJaExisteException();
+
             await _repository.AddAsync(new Pessoa(aggregateId, cnpj, razaoSocial, nomeFantasia));
         }
 
@@ -29,9 +32,12 @@ namespace ToDo.Services
         {
             Validar(razaoSocial);
 
+            var existeCnpjCadastrado = await _repository.ExistAsync<Pessoa>(x => x.AggregateId != aggregateId && x.PessoaJuridica.Cnpj == cnpj);
+            if (existeCnpjCadastrado) throw new PessoaCnpjJaExisteException();
+
             var pessoa = await _repository.GetByAsync<Pessoa>(aggregateId);
             if (pessoa.IsNull()) throw new PessoaNaoEncontradaException();
-            
+
             pessoa.AlterarPessoaJuridica(cnpj, razaoSocial, nomeFantasia);
         }
 

@@ -6,7 +6,7 @@ namespace ToDo.Domain.Services
 {
     public interface IAutorService : IService
     {
-        Task AdicionarAsync(Guid aggregateId, string nome);
+        Task CriarAsync(Guid aggregateId, string nome);
         Task AlterarAsync(Guid aggregateId, string nome);
         Task InativarOuAtivarAsync(Guid aggregateId);
     }

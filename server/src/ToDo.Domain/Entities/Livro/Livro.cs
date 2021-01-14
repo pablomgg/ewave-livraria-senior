@@ -49,10 +49,7 @@ namespace ToDo.Domain.Entities.Livro
             GeneroId = generoId;
         }
 
-        public void InativarOuAtivar()
-        {
-            Ativo = !Ativo;
-        } 
+        public void InativarOuAtivar() => Ativo = !Ativo;
 
         private void Validar(string titulo, string capa, string sinopse)
         {

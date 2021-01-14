@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using Dasync.Collections;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ToDo.Dapper.Abstractions.Finders;
 using ToDo.Dapper.Abstractions.Models;
 using ToDo.Dapper.Core;

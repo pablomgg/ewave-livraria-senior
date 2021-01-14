@@ -18,7 +18,7 @@ namespace ToDo.Services
             _repository = repository;
         }
 
-        public async Task AdicionarAsync(Guid aggregateId, Guid autorAggregateId, Guid generoAggregateId, string titulo, string capa, string sinopse, int? paginas)
+        public async Task CriarAsync(Guid aggregateId, Guid autorAggregateId, Guid generoAggregateId, string titulo, string capa, string sinopse, int? paginas)
         {
             Validar(autorAggregateId, generoAggregateId, titulo, capa);
 

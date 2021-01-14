@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ToDo.Domain.Entities.Pessoa;
-using ToDo.Domain.Enums;
 using ToDo.Domain.Exceptions;
 using ToDo.Domain.Services;
 using ToDo.Domain.ValuesObjects;
@@ -23,15 +22,21 @@ namespace ToDo.Services
         {
             Validar(nome);
 
+            var existeCpfCadastrado = await _repository.ExistAsync<Pessoa>(x => x.PessoaFisica.Cpf == cpf);
+            if(existeCpfCadastrado) throw new PessoaCpfJaExisteException();
+
             await _repository.AddAsync(new Pessoa(aggregateId, cpf, nome));
         }
 
         public async Task AlterarAsync(Guid aggregateId, Cpf cpf, string nome)
         {
             Validar(nome);
-            
+
+            var existeCpfCadastrado = await _repository.ExistAsync<Pessoa>(x => x.AggregateId != aggregateId && x.PessoaFisica.Cpf == cpf);
+            if (existeCpfCadastrado) throw new PessoaCpfJaExisteException();
+
             var pessoa = await _repository.GetByAsync<Pessoa>(aggregateId);
-            if(pessoa.IsNull()) throw new PessoaNaoEncontradaException();
+            if (pessoa.IsNull()) throw new PessoaNaoEncontradaException();
 
             pessoa.AlterarPessoaFisica(cpf, nome);
         }

@@ -6,7 +6,7 @@ namespace ToDo.Domain.Services
 {
     public interface ILivroService : IService
     {
-        Task AdicionarAsync(Guid aggregateId, Guid autorAggregateId, Guid generoAggregateId, string titulo, string capa, string sinopse, int? paginas);
+        Task CriarAsync(Guid aggregateId, Guid autorAggregateId, Guid generoAggregateId, string titulo, string capa, string sinopse, int? paginas);
         Task AlterarAsync(Guid aggregateId, Guid autorAggregateId, Guid generoAggregateId, string titulo, string capa, string sinopse, int? paginas);
         Task InativarOuAtivarAsync(Guid aggregateId);
     }

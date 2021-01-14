@@ -38,8 +38,7 @@ GO
 CREATE TABLE [dbo].[Pessoa] 
 (
 	[Id] INT NOT NULL IDENTITY(1,1),
-	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
-	[Nome] VARCHAR(255) NOT NULL,
+	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE, 
 	[TipoId] INT NOT NULL,
 	[DataCriacao] DATETIME NOT NULL,
 	[Ativo] BIT NOT NULL
@@ -74,6 +73,7 @@ CREATE TABLE [dbo].[InstituicaoDeEnsino]
 	[Id] INT NOT NULL IDENTITY(1,1),
 	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
 	[PessoaAggregateId] UNIQUEIDENTIFIER NOT NULL,
+	[DataCriacao] DATETIME NOT NULL,
 	[Ativo] BIT NOT NULL,
 	CONSTRAINT [PK_InstituicaoDeEnsino] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_InstituicaoDeEnsino_Pessoa] FOREIGN KEY ([PessoaAggregateId]) REFERENCES [dbo].[Pessoa]([AggregateId])
@@ -86,6 +86,7 @@ CREATE TABLE [dbo].[Usuario]
 	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
 	[PessoaAggregateId] UNIQUEIDENTIFIER NOT NULL,
 	[InstituicaoDeEnsinoAggregateId] UNIQUEIDENTIFIER NOT NULL,
+	[DataCriacao] DATETIME NOT NULL,
 	[Ativo] BIT NOT NULL,
 	CONSTRAINT [PK_Usuario] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Usuario_Pessoa] FOREIGN KEY ([PessoaAggregateId]) REFERENCES [Pessoa]([AggregateId]),

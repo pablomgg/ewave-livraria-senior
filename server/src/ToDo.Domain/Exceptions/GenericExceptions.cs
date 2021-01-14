@@ -1,7 +1,6 @@
 ﻿using System;
 using ToDo.Infra.Core;
 
-
 namespace ToDo.Domain.Exceptions
 {
     public class CampoMaiorQuePermitidoException : BusinessException

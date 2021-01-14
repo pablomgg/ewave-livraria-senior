@@ -1,5 +1,4 @@
-﻿using System.Net;
-using ToDo.Infra.Core;
+﻿using ToDo.Infra.Core;
 
 namespace ToDo.Domain.Exceptions
 {

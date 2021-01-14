@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ToDo.Domain.Services;
 using ToDo.WebApi.Configurations;
@@ -16,16 +13,16 @@ namespace ToDo.WebApi.Controllers.WriteModel
         public AutorController(IDomainService domainService) : base(domainService) { }
 
         /// <summary>
-        /// Adicionar um autor(a).
+        /// Criar um autor(a).
         /// </summary>
         /// <param name="dto">Parâmetros esperados.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AdicionarAsync([FromBody] AutorDto dto)
+        public async Task<IActionResult> CriarAsync([FromBody] AutorDto dto)
         {
             await DomainService
                 .NewGuid(out var aggregateId)
-                .Execute<IAutorService>(async service => await service.AdicionarAsync(aggregateId, dto.Nome))
+                .Execute<IAutorService>(async service => await service.CriarAsync(aggregateId, dto.Nome))
                 .CommitAsync();
 
             return Ok(aggregateId);

@@ -13,16 +13,16 @@ namespace ToDo.WebApi.Controllers.WriteModel
         public LivroController(IDomainService domainService) : base(domainService) { }
 
         /// <summary>
-        /// Adicionar um livro.
+        /// Criar um livro.
         /// </summary>
         /// <param name="dto">Parâmetros esperados.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AdicionarAsync([FromBody] LivroDto dto)
+        public async Task<IActionResult> CriarAsync([FromBody] LivroDto dto)
         {
             await DomainService
                 .NewGuid(out var aggregateId)
-                .Execute<ILivroService>(async service => await service.AdicionarAsync(aggregateId, dto.autorAggregateId, dto.generoAggregateId, dto.Titulo, dto.Capa, dto.Sinopse, dto.Paginas))
+                .Execute<ILivroService>(async service => await service.CriarAsync(aggregateId, dto.autorAggregateId, dto.generoAggregateId, dto.Titulo, dto.Capa, dto.Sinopse, dto.Paginas))
                 .CommitAsync();
 
             return Ok(aggregateId);

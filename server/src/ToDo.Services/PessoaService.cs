@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using ToDo.Domain.Entities.Pessoa;
 using ToDo.Domain.Enums;
 using ToDo.Domain.Exceptions;
-using ToDo.Domain.Models;
 using ToDo.Domain.Services;
 using ToDo.Infra.Core;
 using ToDo.Infra.Extensions;

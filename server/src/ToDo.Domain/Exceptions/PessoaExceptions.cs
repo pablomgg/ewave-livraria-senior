@@ -7,6 +7,16 @@ namespace ToDo.Domain.Exceptions
         public PessoaNaoEncontradaException() : base("Pessoa não encontrada.") { }
     }
 
+    public class PessoaCpfJaExisteException : BusinessException
+    {
+        public PessoaCpfJaExisteException() : base("Já existe um cadastro com esse cpf.") { }
+    }
+
+    public class PessoaCnpjJaExisteException : BusinessException
+    {
+        public PessoaCnpjJaExisteException() : base("Já existe um cadastro com esse cnpj.") { }
+    }
+
     public class PessoaTipoNaoEncontradoException : BusinessException
     {
         public PessoaTipoNaoEncontradoException() : base("Tipo de pessoa não encontrada.") { }

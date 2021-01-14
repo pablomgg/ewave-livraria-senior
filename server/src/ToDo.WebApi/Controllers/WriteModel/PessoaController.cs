@@ -14,6 +14,40 @@ namespace ToDo.WebApi.Controllers.WriteModel
         public PessoaController(IDomainService domainService) : base(domainService) { }
 
         /// <summary>
+        /// Alterar uma pessoa fisica.
+        /// </summary>
+        /// <param name="aggregateId">AggregateId de pessoa.</param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{aggregateId}/pessoa-fisica")]
+        public async Task<IActionResult> AlterarPessoaFisicaAsync(Guid aggregateId, [FromBody] PessoaFisicaDto dto)
+        {
+            await DomainService
+                .Execute<IPessoaFisicaService>(async (service) => { await service.AlterarAsync(aggregateId, dto.Cpf, dto.Nome); })
+                .CommitAsync();
+
+            return Ok(aggregateId);
+        }
+
+        /// <summary>
+        /// Alterar uma pessoa juridica.
+        /// </summary>
+        /// <param name="aggregateId">AggregateId de pessoa.</param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{aggregateId}/pessoa-juridica")]
+        public async Task<IActionResult> AlterarPessoaJuridicaAsync(Guid aggregateId, [FromBody] PessoaJuridicaDto dto)
+        {
+            await DomainService
+                .Execute<IPessoaJuridicaService>(async (service) => { await service.AlterarAsync(aggregateId, dto.Cnpj, dto.RazaoSocial, dto.NomeFantasia); })
+                .CommitAsync();
+
+            return Ok(aggregateId);
+        }
+
+        /// <summary>
         /// Alterar um endereco.
         /// </summary>
         /// <param name="aggregateId">AggregateId de pessoa.</param>

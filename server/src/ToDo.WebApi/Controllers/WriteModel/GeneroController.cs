@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using ToDo.Domain.Services;
 using ToDo.WebApi.Configurations;
 using ToDo.WebApi.Dtos;
@@ -13,16 +13,16 @@ namespace ToDo.WebApi.Controllers.WriteModel
         public GeneroController(IDomainService domainService) : base(domainService) { }
 
         /// <summary>
-        /// Adicionar um genero.
+        /// Criar um genero.
         /// </summary>
         /// <param name="dto">Parâmetros esperados.</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AdicionarAsync([FromBody] GeneroDto dto)
+        public async Task<IActionResult> CriarAsync([FromBody] GeneroDto dto)
         {
             await DomainService
                 .NewGuid(out var aggregateId)
-                .Execute<IGeneroService>(async service => await service.AdicionarAsync(aggregateId, dto.Nome))
+                .Execute<IGeneroService>(async service => await service.CriarAsync(aggregateId, dto.Nome))
                 .CommitAsync();
 
             return Ok(aggregateId);

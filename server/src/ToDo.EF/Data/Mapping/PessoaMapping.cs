@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ToDo.Domain.Entities;
 using ToDo.Domain.Entities.Pessoa;
 using ToDo.Domain.Models;
 
@@ -11,10 +10,17 @@ namespace ToDo.EF.Data.Mapping
         public void Configure(EntityTypeBuilder<Pessoa> builder)
         {
             builder.ToTable("Pessoa").HasKey(x => x.Id);
-            builder.Property(x => x.AggregateId); 
+            builder.Property(x => x.Id);
+            builder.Property(x => x.AggregateId);
             builder.Property(x => x.TipoId);
             builder.Property(x => x.DataCriacao);
             builder.Property(x => x.Ativo);
+
+            builder
+                .HasOne(x => x.Tipo)
+                .WithMany()
+                .HasPrincipalKey(x => x.Id)
+                .HasForeignKey(x => x.TipoId);
 
             builder
                 .HasOne(x => x.PessoaFisica)

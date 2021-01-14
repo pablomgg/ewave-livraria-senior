@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using ToDo.Domain.Enums;
-using ToDo.Domain.Exceptions;
 using ToDo.Domain.Models;
 using ToDo.Infra.Core;
-using ToDo.Infra.Extensions;
 
 namespace ToDo.Domain.Entities.Pessoa
 {
@@ -14,8 +12,8 @@ namespace ToDo.Domain.Entities.Pessoa
         public int TipoId { get; private set; }
 
         public virtual PessoaTipo Tipo { get; protected set; }
-        public virtual ICollection<PessoaMeioContatoEmail> Emails { get; set; }
-        public virtual ICollection<PessoaMeioContatoTelefone> Telefones { get; set; } 
+        public virtual ICollection<PessoaMeioContatoEmail> Emails { get; set; } = new HashSet<PessoaMeioContatoEmail>();
+        public virtual ICollection<PessoaMeioContatoTelefone> Telefones { get; set; } = new HashSet<PessoaMeioContatoTelefone>();
         public virtual PessoaEndereco Endereco { get; protected set; }
 
         private const int TAMANHO_NOME = 255;
