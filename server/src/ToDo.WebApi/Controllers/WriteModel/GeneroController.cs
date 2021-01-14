@@ -51,7 +51,7 @@ namespace ToDo.WebApi.Controllers.WriteModel
         /// <param name="aggregateId">Parâmetro esperado.</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("inativar-ou-ativar/{aggregateId:guid}")]
+        [Route("{aggregateId:guid}/inativar-ou-ativar")]
         public async Task<IActionResult> InativarOuAtivarAsync(Guid aggregateId)
         {
             await DomainService

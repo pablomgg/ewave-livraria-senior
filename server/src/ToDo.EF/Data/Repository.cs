@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using ToDo.Infra.Core;
 using ToDo.Infra.Extensions;
 
@@ -34,6 +34,11 @@ namespace ToDo.EF.Data
             return entity ?? await _dbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.AggregateId == aggregateId);
         }
 
+        public async Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> filter) where TEntity : Entity
+        {
+           return await _dbContext.Set<TEntity>().CountAsync(filter);
+        }
+
         public virtual async Task DeleteAsync<T>(Guid aggregateId) where T : class
         {
             var entity = await _dbContext.Set<T>().FindAsync(aggregateId);
@@ -55,6 +60,6 @@ namespace ToDo.EF.Data
         public async Task<bool> ExistAsync<TEntity>(Expression<Func<TEntity, bool>> filter) where TEntity : Entity
         {
             return await _dbContext.Set<TEntity>().AsNoTracking().AnyAsync(filter);
-        }
+        } 
     }
 }

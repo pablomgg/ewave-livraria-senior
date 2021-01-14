@@ -16,7 +16,7 @@ namespace ToDo.Domain.Entities.Livro
         public virtual Autor Autor { get; protected set; }
         public int GeneroId { get; private set; }
         public virtual Genero Genero { get; protected set; }
-
+        
         private const int TAMANHO_TITULO = 255;
         private const int TAMANHO_CAPA = 800;
         private const int TAMANHO_SINOPSE = 400;
@@ -50,6 +50,10 @@ namespace ToDo.Domain.Entities.Livro
         }
 
         public void InativarOuAtivar() => Ativo = !Ativo;
+
+        public void Disponibilizar() => Disponivel = true;
+        
+        public void Indisponibilizar() => Disponivel = false;
 
         private void Validar(string titulo, string capa, string sinopse)
         {

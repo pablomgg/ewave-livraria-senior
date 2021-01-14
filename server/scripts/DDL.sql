@@ -138,14 +138,17 @@ GO
 CREATE TABLE [dbo].[Emprestimo] 
 (
 	[Id] INT NOT NULL IDENTITY(1,1),
+	[AggregateId] UNIQUEIDENTIFIER NOT NULL UNIQUE,
 	[DataEmprestimo] DATETIME NOT NULL,
 	[DataVencimento] DATETIME NOT NULL,
 	[DataDevolucao] DATETIME NULL,
 	[LivroId] INT NOT NULL,
-	[PessoaId] INT NOT NULL,
-	CONSTRAINT [PK_Emprestimo] PRIMARY KEY CLUSTERED ([Id]),
+	[UsuarioId] INT NOT NULL,
+	[DataCriacao] DATETIME NOT NULL,
+	[Ativo] BIT NOT NULL,
+	CONSTRAINT [PK_Emprestimo] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_Emprestimo_Livro] FOREIGN KEY ([LivroId]) REFERENCES [Livro]([Id]),
-	CONSTRAINT [FK_Emprestimo_Usuario] FOREIGN KEY ([PessoaId]) REFERENCES [Usuario]([PessoaId])
+	CONSTRAINT [FK_Emprestimo_Usuario] FOREIGN KEY ([UsuarioId]) REFERENCES [Usuario]([Id])
 )
 GO
 
