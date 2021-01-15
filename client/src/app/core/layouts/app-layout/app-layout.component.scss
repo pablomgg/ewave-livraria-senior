@@ -1,0 +1,53 @@
+.toolbar {
+  background-color:#f1f2f3;
+}
+.imgHeader {
+  width: 200px;
+  height: 15vh;
+}
+.outSidenav {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.sidenav {
+  box-shadow: 1px 5px 10px #c3c3c3;
+  display: flex;
+  width: 250px;
+  height: 100vh;
+  background-color: #a8846b;
+}
+.sidenavMenu {
+  width: 100%;
+}
+.sidenavMenu a {
+  color: #fafafa;
+  max-height: 60px;
+  font-size: 16px;
+}
+.sidenavMenu a:hover {
+  background-color: #a8846b;
+}
+.menuIcon {
+  cursor: pointer;
+  font-size: 25px;
+}
+.bodyConteudo {
+  padding: 15px;
+}
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.toolbar-text {
+  font-size: 14px;
+  vertical-align: top;
+}
+.accordionMenu {
+  background-color:  #a8846b;
+}
+.accordionMenu mat-panel-title,
+.accordionMenu span {
+  color: #fff !important;
+}
