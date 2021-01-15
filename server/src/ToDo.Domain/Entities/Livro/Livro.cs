@@ -20,6 +20,8 @@ namespace ToDo.Domain.Entities.Livro
         private const int TAMANHO_TITULO = 255;
         private const int TAMANHO_CAPA = 800;
         private const int TAMANHO_SINOPSE = 400;
+
+        public Livro() { }
         
         public Livro(Guid aggregateId, int autorId, int generoId, string titulo, string capa, string sinopse, int? paginas = 0 )
         {

@@ -8,6 +8,8 @@ namespace ToDo.Domain.Entities.InstituicaoDeEnsino
         public Guid PessoaAggregateId { get; private set; }
         public virtual Pessoa.Pessoa Pessoa { get; protected set; }
 
+        public InstituicaoDeEnsino() { }
+
         public InstituicaoDeEnsino(Guid aggregateId, Guid pessoaAggregateId)
         {
             AggregateId = aggregateId;

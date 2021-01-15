@@ -16,7 +16,7 @@ namespace ToDo.Domain.Models
             Validar(nome);
 
             Cpf = cpf;
-            Nome = nome;
+            Nome = nome.ToUpper();
         }
 
         public void Alterar(string cpf, string nome)
@@ -24,7 +24,7 @@ namespace ToDo.Domain.Models
             Validar(nome);
 
             Cpf = cpf;
-            Nome = nome;
+            Nome = nome.ToUpper();
         }
 
         private void Validar(string nome)

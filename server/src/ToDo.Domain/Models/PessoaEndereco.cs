@@ -19,6 +19,8 @@ namespace ToDo.Domain.Models
         private const int TAMANHO_BAIRRO = 180;
         private const int TAMANHO_COMPLEMENTO = 255;
 
+        public PessoaEndereco() { }
+
         public PessoaEndereco(string cep, string bairro, string logradouro, int cidadeId, string numero = null, string complemento = null)
         {
             Validar(cep, bairro, logradouro, numero, complemento);

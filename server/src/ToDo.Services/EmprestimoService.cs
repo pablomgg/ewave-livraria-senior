@@ -21,6 +21,8 @@ namespace ToDo.Services
 
         public async Task CriarAsync(Guid aggregateId, Guid usuarioAggregateId, Guid livroAggregateId, DateTime dataEmprestimo)
         {
+            Validar(aggregateId, usuarioAggregateId, livroAggregateId, dataEmprestimo);
+
             var usuario = await _repository.GetByAsync<Usuario>(usuarioAggregateId);
             if (usuario.IsNull()) throw new UsuarioNaoEncontradoException();
 
@@ -37,11 +39,27 @@ namespace ToDo.Services
 
         public async Task DevolverAsync(Guid aggregateId, DateTime dataDevolucao)
         {
+            ValidarDevolucao(aggregateId, dataDevolucao);
+
             var emprestimo = await _repository.GetByAsync<Emprestimo>(aggregateId);
             if (emprestimo.IsNull()) throw new EmprestimoNaoEncontradoException();
 
             emprestimo.Devolucao(dataDevolucao);
             emprestimo.Livro.Disponibilizar();
+        }
+
+        private void Validar(Guid aggregateId, Guid usuarioAggregateId, Guid livroAggregateId, DateTime dataEmprestimo)
+        {
+            if (aggregateId.IsEmpty()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(aggregateId), aggregateId.GetType());
+            if (usuarioAggregateId.IsEmpty()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(usuarioAggregateId), usuarioAggregateId.GetType());
+            if (livroAggregateId.IsEmpty()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(livroAggregateId), livroAggregateId.GetType());
+            if (dataEmprestimo.IsInvalid()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(livroAggregateId), livroAggregateId.GetType());
+        }
+
+        private void ValidarDevolucao(Guid aggregateId, DateTime dataDevolucao)
+        {
+            if (aggregateId.IsEmpty()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(aggregateId), aggregateId.GetType());
+            if (dataDevolucao.IsInvalid()) throw new CampoNuloOuVazioOuMenorOuIgualZeroException(nameof(dataDevolucao), dataDevolucao.GetType());
         }
     }
 }

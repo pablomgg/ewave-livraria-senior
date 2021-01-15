@@ -6,7 +6,7 @@ namespace ToDo.Domain.Entities.Pessoa
 {
     public partial class Pessoa
     {
-        public virtual PessoaJuridica PessoaJuridica { get; protected set; }
+        public virtual PessoaJuridica PessoaJuridica { get; set; }
 
         public Pessoa(Guid aggregateId, string cnpj, string razaoSocial, string nomeFantasia) : this(aggregateId, EPessoaTipo.PessoaJuridica) => PessoaJuridica = new PessoaJuridica(cnpj, razaoSocial, nomeFantasia);
 

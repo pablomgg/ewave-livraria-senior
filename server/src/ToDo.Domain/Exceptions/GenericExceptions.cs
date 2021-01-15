@@ -10,6 +10,6 @@ namespace ToDo.Domain.Exceptions
 
     public class CampoNuloOuVazioOuMenorOuIgualZeroException : BusinessException
     {
-        public CampoNuloOuVazioOuMenorOuIgualZeroException(string campo, Type type) : base(type == typeof(string) || type == typeof(Guid) ? $"Campo '{campo}' não pode ser vazio." : $"Campo '{campo}' não pode ser igual ou menor que zero.") { }
+        public CampoNuloOuVazioOuMenorOuIgualZeroException(string campo, Type type) : base(type == typeof(string) || type == typeof(Guid) ? $"Campo '{campo}' não pode ser vazio." : type == typeof(DateTime) ? $"Campo '{campo}' não é uma data valida." : $"Campo '{campo}' não pode ser igual ou menor que zero.") { }
     }
 }

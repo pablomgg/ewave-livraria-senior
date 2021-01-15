@@ -11,23 +11,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{6AD5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3C64BF2C-C532-4ECC-B034-99E0444F3B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Application", "src\ToDo.Application\ToDo.Application.csproj", "{512573D6-D220-4D52-89C4-724D7B186877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Application", "src\ToDo.Application\ToDo.Application.csproj", "{512573D6-D220-4D52-89C4-724D7B186877}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.WebApi", "src\ToDo.WebApi\ToDo.WebApi.csproj", "{A346D6B7-2FCE-4B5A-8A6F-6FF4DD816BEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.WebApi", "src\ToDo.WebApi\ToDo.WebApi.csproj", "{A346D6B7-2FCE-4B5A-8A6F-6FF4DD816BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.EF", "src\ToDo.EF\ToDo.EF.csproj", "{558202F7-8AEA-4EE2-BDE9-3ED1BBE80F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.EF", "src\ToDo.EF\ToDo.EF.csproj", "{558202F7-8AEA-4EE2-BDE9-3ED1BBE80F7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{066E0E77-EB81-4055-B949-6016F6F06C30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra", "src\Infrastructure\ToDo.Infra\ToDo.Infra.csproj", "{2C61C838-04D9-42AB-A68D-5BF99DA629EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Infra", "src\Infrastructure\ToDo.Infra\ToDo.Infra.csproj", "{2C61C838-04D9-42AB-A68D-5BF99DA629EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Dapper", "src\ToDo.Dapper\ToDo.Dapper.csproj", "{64630DB0-8055-4FD5-96B0-F3909C0B3ECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Dapper", "src\ToDo.Dapper\ToDo.Dapper.csproj", "{64630DB0-8055-4FD5-96B0-F3909C0B3ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Dapper.Abstractions", "src\ToDo.Dapper.Abstractions\ToDo.Dapper.Abstractions.csproj", "{2D86884B-0E27-4107-90EE-9167FF4F664E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Dapper.Abstractions", "src\ToDo.Dapper.Abstractions\ToDo.Dapper.Abstractions.csproj", "{2D86884B-0E27-4107-90EE-9167FF4F664E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Services", "src\ToDo.Services\ToDo.Services.csproj", "{49542D3B-A403-448C-879F-CFC8BAF704A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Services", "src\ToDo.Services\ToDo.Services.csproj", "{49542D3B-A403-448C-879F-CFC8BAF704A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Domain", "src\ToDo.Domain\ToDo.Domain.csproj", "{B8F7EE07-CB52-4428-8E3A-431ED3291634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDo.Domain", "src\ToDo.Domain\ToDo.Domain.csproj", "{B8F7EE07-CB52-4428-8E3A-431ED3291634}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{655021EB-9CED-433A-ACE7-6CD12ED7BEF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Domain.Tests", "tests\ToDo.Domain.Tests\ToDo.Domain.Tests.csproj", "{0D6ECC7E-8142-4152-97A7-B36EE39D92F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra.Tests", "tests\ToDo.Infra.Tests\ToDo.Infra.Tests.csproj", "{FDD07989-3BA8-44F3-987D-87551D2C763D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +73,14 @@ Global
 		{B8F7EE07-CB52-4428-8E3A-431ED3291634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F7EE07-CB52-4428-8E3A-431ED3291634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F7EE07-CB52-4428-8E3A-431ED3291634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6ECC7E-8142-4152-97A7-B36EE39D92F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6ECC7E-8142-4152-97A7-B36EE39D92F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6ECC7E-8142-4152-97A7-B36EE39D92F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6ECC7E-8142-4152-97A7-B36EE39D92F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDD07989-3BA8-44F3-987D-87551D2C763D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD07989-3BA8-44F3-987D-87551D2C763D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD07989-3BA8-44F3-987D-87551D2C763D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD07989-3BA8-44F3-987D-87551D2C763D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +95,8 @@ Global
 		{2D86884B-0E27-4107-90EE-9167FF4F664E} = {3C64BF2C-C532-4ECC-B034-99E0444F3B32}
 		{49542D3B-A403-448C-879F-CFC8BAF704A7} = {3C64BF2C-C532-4ECC-B034-99E0444F3B32}
 		{B8F7EE07-CB52-4428-8E3A-431ED3291634} = {3C64BF2C-C532-4ECC-B034-99E0444F3B32}
+		{0D6ECC7E-8142-4152-97A7-B36EE39D92F9} = {655021EB-9CED-433A-ACE7-6CD12ED7BEF3}
+		{FDD07989-3BA8-44F3-987D-87551D2C763D} = {655021EB-9CED-433A-ACE7-6CD12ED7BEF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17645997-7AC0-4EE9-ABC6-9A52C68591EA}
