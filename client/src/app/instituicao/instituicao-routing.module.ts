@@ -1,15 +1,22 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { InstituicaoComponent } from "./instituicao.component";
+
+import { InstituicaoCadastroComponent } from "./instituicao-cadastro/instituicao-cadastro.component";
+import { InstituicaoConsultaComponent } from "./instituicao-consulta/instituicao-consulta.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: InstituicaoComponent,
-    data: {
-      title: "Instituições de ensino",
-    },
-  }
+    component: InstituicaoConsultaComponent,
+  },
+  {
+    path: "cadastrar",
+    component: InstituicaoCadastroComponent,
+  },
+  {
+    path: ":id/editar",
+    component: InstituicaoCadastroComponent,
+  },
 ];
 
 @NgModule({
