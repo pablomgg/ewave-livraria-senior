@@ -1,0 +1,429 @@
+<div class="panel-content">
+  <h3>Cadastar Instituição</h3>
+</div>
+<div class="panel-body">
+  <div class="card">
+    <form
+      class="needs-validation"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      [ngClass]="{ 'was-validated': submitted }"
+      novalidate
+    >
+      <div class="formulario">
+        <div class="row" formGroupName="pessoaJuridica">
+          <div class="col-md-4">
+            <label for="titulo">Cnpj</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cnpj"
+              formControlName="cnpj"
+              required
+            />
+            <div class="invalid-feedback">Cnpj é obrigatório</div>
+          </div>
+          <div class="col-md-4">
+            <label for="titulo">Razão Social</label>
+            <input
+              type="text"
+              class="form-control"
+              id="razaoSocial"
+              formControlName="razaoSocial"
+              required
+            />
+            <div class="invalid-feedback">Razão Social é obrigatório</div>
+          </div>
+          <div class="col-md-4">
+            <label for="titulo">Nome Fantasia</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nomeFantasia"
+              formControlName="nomeFantasia"
+              required
+            />
+            <div class="invalid-feedback">Nome Fantasia é obrigatório</div>
+          </div>
+        </div>
+
+        <header>
+          <h3>Endereço</h3>
+        </header>
+        <ng-container formGroupName="endereco">
+          <div class="row">
+            <div class="col-md-2">
+              <label for="cep">CEP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="cep"
+                formControlName="cep"
+                required
+              />
+              <div class="invalid-feedback">CEP é obrigatório</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label for="estado">Estado</label>
+              <select
+                class="form-select"
+                id="estado"
+                formControlName="estadoId"
+                required
+              >
+                <option selected disabled value="">Selecione um estado</option>
+                <ng-container *ngIf="estados && estados.length > 0">
+                  <option *ngFor="let estado of estados" [value]="estado.id">
+                    {{ estado.nome }}
+                  </option>
+                </ng-container>
+              </select>
+              <div class="invalid-feedback">estado é obrigatóriio</div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cidade">Cidade</label>
+              <select
+                class="form-select"
+                id="cidade"
+                formControlName="cidadeId"
+                required
+              >
+                <option selected disabled value="">Selecione uma cidade</option>
+                <ng-container *ngIf="cidades && cidades.length > 0">
+                  <option *ngFor="let cidade of cidades" [value]="cidade.id">
+                    {{ cidade.nome }}
+                  </option>
+                </ng-container>
+              </select>
+              <div class="invalid-feedback">Cidade é obrigatóriio</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label for="logradouro">Logradouro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="logradouro"
+                formControlName="logradouro"
+                required
+              />
+              <div class="invalid-feedback">Logradouro é obrigatório</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <label for="numero">Número</label>
+              <input
+                type="number"
+                class="form-control"
+                id="numero"
+                formControlName="numero"
+                required
+              />
+              <div class="invalid-feedback">Número é obrigatório</div>
+            </div>
+
+            <div class="col-md-10">
+              <label for="bairro">Bairro</label>
+              <input
+                type="text"
+                class="form-control"
+                id="bairro"
+                formControlName="bairro"
+                required
+              />
+              <div class="invalid-feedback">Bairro é obrigatório</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <label for="complemento">Complemento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="complemento"
+                formControlName="complemento"
+                required
+              />
+              <div class="invalid-feedback">Complemento é obrigatório</div>
+            </div>
+          </div>
+        </ng-container>
+
+        <header>
+          <h3>Meio de Contato</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="emails">
+                <div class="ui-datatable" *ngIf="[] as emails">
+                  <div class="header-acoes">
+                    <button class="btn btn-primary">Inserir e-mail</button>
+                  </div>
+                  <table>
+                    <thead class="ui-datatable-thead">
+                      <tr class="ui-state-default ng-star-inserted">
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                          style="width: 50px"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >#</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Tipo</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Email</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                          style="width: 150px"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Ação</span
+                          >
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="ui-datatable-data ui-widget-content ui-datatable-hoverable-rows"
+                    >
+                      <ng-container
+                        *ngIf="emails && emails.length > 0; else semEmails"
+                      >
+                        <tr
+                          class="ui-widget-content ui-datatable-emptymessage-row ng-star-inserted"
+                          *ngFor="let email of emails; let i = index"
+                          style="visibility: visible"
+                        >
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{ i + 1 }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{
+                              email?.nome
+                            }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{
+                              email?.cnpj
+                            }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span
+                              class="ng-star-inserted"
+                              [ngClass]="{
+                                ativo: email?.ativo,
+                                inativo: !email?.ativo
+                              }"
+                              >{{ email?.ativo ? "Ativo" : "Inativo" }}</span
+                            >
+                          </td>
+                          <td class="ui-datatable-emptymessage acoes">
+                            <button
+                              class="btn btn-warning"
+                              tooltip="Alterar Insituição"
+                            >
+                              <i class="fa fa-pencil-square-o"></i>
+                            </button>
+                            <button
+                              class="btn"
+                              [ngClass]="{
+                                'btn-danger': email?.ativo,
+                                'btn-success': !email?.ativo
+                              }"
+                              tooltip="Alterar situação da Instituição"
+                            >
+                              <i
+                                class="fa"
+                                [ngClass]="{
+                                  'fa-times': email?.ativo,
+                                  'fa-check': !email?.ativo
+                                }"
+                              ></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+
+                      <ng-template #semEmails>
+                        <tr
+                          class="ui-widget-content ui-datatable-emptymessage-row ng-star-inserted"
+                          style="visibility: visible"
+                        >
+                          <td class="ui-datatable-emptymessage" colspan="5">
+                            <span class="ng-star-inserted"
+                              >Nenhum registro encontrado</span
+                            >
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="telefones">
+                <div class="ui-datatable" *ngIf="[] as emails">
+                  <div class="header-acoes">
+                    <button class="btn btn-primary">Inserir telefone</button>
+                  </div>
+                  <table>
+                    <thead class="ui-datatable-thead">
+                      <tr class="ui-state-default ng-star-inserted">
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                          style="width: 50px"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >#</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Tipo</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Email</span
+                          >
+                        </th>
+                        <th
+                          class="ui-state-default ui-unselectable-text ng-star-inserted"
+                          scope="col"
+                          style="width: 150px"
+                        >
+                          <span class="ui-column-title ng-star-inserted"
+                            >Ação</span
+                          >
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody
+                      class="ui-datatable-data ui-widget-content ui-datatable-hoverable-rows"
+                    >
+                      <ng-container
+                        *ngIf="
+                          telefones && telefones.length > 0;
+                          else semTelefones
+                        "
+                      >
+                        <tr
+                          class="ui-widget-content ui-datatable-emptymessage-row ng-star-inserted"
+                          *ngFor="let telefone of telefones; let i = index"
+                          style="visibility: visible"
+                        >
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{ i + 1 }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{
+                              telefone?.nome
+                            }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span class="ng-star-inserted">{{
+                              telefone?.cnpj
+                            }}</span>
+                          </td>
+                          <td class="ui-datatable-emptymessage">
+                            <span
+                              class="ng-star-inserted"
+                              [ngClass]="{
+                                ativo: telefone?.ativo,
+                                inativo: !telefone?.ativo
+                              }"
+                              >{{ telefone?.ativo ? "Ativo" : "Inativo" }}</span
+                            >
+                          </td>
+                          <td class="ui-datatable-emptymessage acoes">
+                            <button
+                              class="btn btn-warning"
+                              tooltip="Alterar Insituição"
+                            >
+                              <i class="fa fa-pencil-square-o"></i>
+                            </button>
+                            <button
+                              class="btn"
+                              [ngClass]="{
+                                'btn-danger': telefone?.ativo,
+                                'btn-success': !telefone?.ativo
+                              }"
+                              tooltip="Alterar situação da Instituição"
+                            >
+                              <i
+                                class="fa"
+                                [ngClass]="{
+                                  'fa-times': telefone?.ativo,
+                                  'fa-check': !telefone?.ativo
+                                }"
+                              ></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+
+                      <ng-template #semTelefones>
+                        <tr
+                          class="ui-widget-content ui-datatable-emptymessage-row ng-star-inserted"
+                          style="visibility: visible"
+                        >
+                          <td class="ui-datatable-emptymessage" colspan="5">
+                            <span class="ng-star-inserted"
+                              >Nenhum registro encontrado</span
+                            >
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+      <div class="acoes">
+        <button type="button" class="btn btn-default" (click)="cancelar()">
+          <i class="zmdi zmdi-close"></i> Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          disableButtonDuringRequest
+        >
+          <i class="fa fa-check"></i>
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

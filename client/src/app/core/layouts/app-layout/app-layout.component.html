@@ -1,0 +1,95 @@
+<ng-container>
+  <mat-toolbar class="toolbar">
+    &nbsp; &nbsp;
+    <img src="./assets/Vanilla-6.3s-280px.gif" class="imgHeader" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <i matTooltip="Menu" class="menuIcon fa fa-bars" (click)="sidenav.toggle()"></i>
+    <span class="toolbar-spacer"></span>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="outSidenav">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <mat-nav-list class="sidenavMenu">
+        <a
+          mat-list-item
+          href="#"
+          routerLinkActive="active"
+          [routerLink]="'/home'"
+          ><i class="fa fa-home"></i>&nbsp;&nbsp;Página Inicial</a
+        >
+
+        <a
+          mat-list-item
+          href="#"
+          routerLinkActive="active"
+          [routerLink]="'/instituicao'"
+          ><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Instituições de
+          Ensino</a
+        >
+
+        <a
+          mat-list-item
+          href="#"
+          routerLinkActive="active"
+          [routerLink]="'/usuario'"
+          ><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Usuarios</a
+        >
+
+        <mat-expansion-panel class="accordionMenu">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <i class="fa fa-bar-chart"></i>&nbsp;&nbsp;
+              <span>Livros</span>
+            </mat-panel-title>
+            <mat-panel-description></mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <a
+            mat-list-item
+            href="#"
+            routerLinkActive="active"
+            [routerLink]="'/autor'"
+          >
+            <i class="fa fa-line-chart" aria-hidden="true"></i
+            >&nbsp;&nbsp;Autores
+          </a>
+          <a
+            mat-list-item
+            href="#"
+            routerLinkActive="active"
+            [routerLink]="'/genero'"
+          >
+            <i class="fa fa-line-chart" aria-hidden="true"></i
+            >&nbsp;&nbsp;Generos
+          </a>
+          <a
+            mat-list-item
+            href="#"
+            routerLinkActive="active"
+            [routerLink]="'/livro'"
+          >
+            <i class="fa fa-line-chart" aria-hidden="true"></i
+            >&nbsp;&nbsp;Livros
+          </a>
+        </mat-expansion-panel>
+
+        <a
+          mat-list-item
+          href="#"
+          routerLinkActive="active"
+          [routerLink]="'/emprestimo'"
+          ><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Emprestimos</a
+        >
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="bodyConteudo">
+      <main class="main">
+        <div class="container-fluid">
+          <div class="main-content-panel">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

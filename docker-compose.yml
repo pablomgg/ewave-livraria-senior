@@ -1,0 +1,32 @@
+version: '3.6'
+
+services:
+    sqlserver:
+        container_name: sql-server 
+        image: sql-server
+        environment:
+          - ACCEPT_EULA=Y
+          - SA_PASSWORD=JacareB@nguela1
+          - DATABASE=ToDo
+        ports:  
+          - '3010:1433'
+        build:
+            context: .
+            dockerfile: ./server/scripts/Dockerfile
+                
+    backend:
+        container_name: backend
+        image: backend
+        restart: always
+        build: ./server/
+        ports:
+          - "64978:80"
+        depends_on:
+          - sqlserver
+
+    frontend:
+        container_name: frontend
+        image: frontend
+        build: ./client/
+        ports:
+          - '5555:80'

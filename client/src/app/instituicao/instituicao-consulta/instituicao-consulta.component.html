@@ -1,0 +1,47 @@
+<div class="panel-content">
+  <h3>Instituições</h3>
+  <button class="btn btn-secondary" (click)="cadastar()">Adicionar</button>
+</div>
+<div class="panel-body">
+  <div class="card">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">CNPJ</th>
+          <th scope="col">Razão Social</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Situação</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let intituicao of instituicoes">
+          <td>{{ intituicao?.pessoaJuridica?.cnpj }}</td>
+          <td>{{ intituicao?.pessoaJuridica?.razaoSocial }}</td>
+          <td>{{ intituicao?.telefones[0].numero }}</td>
+          <td>{{ intituicao?.emails[0]?.endereco }}</td>
+          <td>
+            <span
+              [ngClass]="{
+                ativo: intituicao?.ativo,
+                inativo: !intituicao?.ativo
+              }"
+              (click)="alterarSituacao(intituicao)"
+              >{{ intituicao?.ativo ? "Ativo" : "Inativo" }}</span
+            >
+          </td>
+          <td>
+            <button class="btn btn-primary">
+              <i
+                class="fa fa-edit"
+                aria-hidden="true"
+                (click)="alterar(intituicao)"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
