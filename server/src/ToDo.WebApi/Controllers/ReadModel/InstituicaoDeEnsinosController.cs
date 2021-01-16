@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -27,6 +28,18 @@ namespace ToDo.WebApi.Controllers.ReadModel
         public async Task<IActionResult> ObterAsync()
         {
             return Ok(await _instituicaoDeEnsinoFinder.ObterAsync());
+        }
+
+        /// <summary>
+        /// Obter uma instituição de ensino.
+        /// </summary>
+        /// <param name="aggregateId">AggregateId da instituição.</param>
+        /// <returns></returns>
+        [HttpGet("{aggregateId:guid}")]
+        [ProducesResponseType(typeof(InstituicaoDeEnsinoModel), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ObterAsync(Guid aggregateId)
+        {
+            return Ok(await _instituicaoDeEnsinoFinder.ObterAsync(aggregateId));
         }
     }
 }

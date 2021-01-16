@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using Dasync.Collections;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -28,6 +29,21 @@ namespace ToDo.Dapper.Finders
             await usuarios.ParallelForEachAsync(async usuario => await ObterInformacoesDaPessoaAsync(usuario, query));
 
             return usuarios;
+        }
+
+        public async Task<UsuarioModel> ObterAsync(Guid aggregateId)
+        {
+            using var conn = CreateConnection();
+            var usuario = await conn.QuerySingleOrDefaultAsync<UsuarioModel>(UsuarioQueries.QueryByAggregateId, new { AggregateId = aggregateId });
+
+            string query = $" { PessoaQueries.PessoaFisica.QueryById } " +
+                           $" { PessoaQueries.PessoaEndereco.QueryById } " +
+                           $" { PessoaQueries.PessoaTelefone.QueryById } " +
+                           $" { PessoaQueries.PessoaEmail.QueryById } ";
+
+            await ObterInformacoesDaPessoaAsync(usuario, query);
+
+            return usuario;
         }
 
         private async Task ObterInformacoesDaPessoaAsync(UsuarioModel usuario, string query)
