@@ -21,7 +21,7 @@ export class EmprestimoService extends HttpService {
     return this.post(null, body);
   }
 
-  public inativarOuAtivar(aggregateId: string) {
-    return this.put(`${aggregateId}/inativar-ou-ativar`, null);
+  public devolver(aggregateId: string) {
+    return this.put(aggregateId, null);
   }
 }
