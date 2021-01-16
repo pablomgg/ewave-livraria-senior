@@ -21,6 +21,10 @@ export class LivroService extends HttpService {
     return this.post(null, body);
   }
 
+  public alterar(aggregateId: string, body: any) {
+    return this.put(aggregateId, body);
+  }
+
   public inativarOuAtivar(aggregateId: string) {
     return this.put(`${aggregateId}/inativar-ou-ativar`, null);
   }

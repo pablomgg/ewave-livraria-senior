@@ -1,1 +1,209 @@
-<p>livro works!</p>
+<div class="panel-content">
+  <h3>Livros</h3>
+  <button class="btn btn-secondary" (click)="abrirModal()">Adicionar</button>
+</div>
+<div class="panel-body">
+  <div class="card">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Capa</th>
+          <th scope="col">Título</th>
+          <th scope="col">Gênero</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Páginas</th>
+          <th scope="col">Situação</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livro of livros">
+          <td width="120px" class="capa"><img src="{{ livro.capa }}" /></td>
+          <td>{{ livro.titulo }}</td>
+          <td>{{ livro.genero?.nome }}</td>
+          <td>{{ livro.autor?.nome }}</td>
+          <td>{{ livro.paginas }}</td>
+          <td>
+            <span
+              [ngClass]="{ ativo: livro?.ativo, inativo: !livro?.ativo }"
+              (click)="alterarSituacao(livro)"
+              >{{ livro?.ativo ? "Ativo" : "Inativo" }}</span
+            >
+          </td>
+          <td>
+            <button class="btn btn-primary">
+              <i
+                class="fa fa-edit"
+                aria-hidden="true"
+                (click)="abrirModal(livro)"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    class="modal fade modal-timeline"
+    bsModal
+    #modal="bs-modal"
+    role="dialog"
+    aria-labelledby="dialog-static-name"
+    [config]="{ backdrop: 'static' }"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-events-name" class="modal-title pull-left">
+            {{ editar ? "Alterar" : "Adicionar" }} Livro
+          </h4>
+          <button
+            type="button"
+            class="close pull-right"
+            aria-label="Close"
+            (click)="fecharModal()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form
+            class="needs-validation"
+            [formGroup]="form"
+            [ngClass]="{ 'was-validated': submitted }"
+            novalidate
+          >
+            <div class="col-md-12">
+              <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="titulo">Título</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        formControlName="titulo"
+                        required
+                      />
+                      <div class="invalid-feedback">Título é obrigatório</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <label for="autor">Autor</label>
+                      <select
+                        class="form-select"
+                        id="autor"
+                        formControlName="autorAggregateId"
+                        required
+                      >
+                        <option selected disabled value="">
+                          Selecione um autor
+                        </option>
+                        <ng-container *ngIf="autores && autores.length > 0">
+                          <option
+                            *ngFor="let autor of autores"
+                            [value]="autor.aggregateId"
+                          >
+                            {{ autor.nome }}
+                          </option>
+                        </ng-container>
+                      </select>
+                      <div class="invalid-feedback">Autor é obrigatóriio</div>
+                    </div>
+                    <div class="col-md-5">
+                      <label for="genero">Gênero</label>
+                      <select
+                        class="form-select"
+                        id="genero"
+                        formControlName="generoAggregateId"
+                        required
+                      >
+                        <option selected disabled value="">
+                          Selecione um gênero
+                        </option>
+                        <ng-container *ngIf="generos && generos.length > 0">
+                          <option
+                            *ngFor="let genero of generos"
+                            [value]="genero.aggregateId"
+                          >
+                            {{ genero.nome }}
+                          </option>
+                        </ng-container>
+                      </select>
+                      <div class="invalid-feedback">Gênero é obrigatóriio</div>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="paginas">Páginas</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="paginas"
+                        formControlName="paginas"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Quantidade de páginas é obrigatório
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="capa">Url da Capa</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="capa"
+                        formControlName="capa"
+                        required
+                      />
+                      <div class="invalid-feedback">Capa é obrigatóro</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="validationCustom02">Sinopse</label>
+                      <textarea
+                        type="text"
+                        id="sinopse"
+                        class="md-textarea form-control"
+                        formControlName="sinopse"
+                        required
+                      ></textarea>
+                      <div class="invalid-feedback">Sinopse é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="acoes">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="fecharModal()"
+            >
+              <i class="zmdi zmdi-close"></i> Cancelar
+            </button>
+
+            <button
+              type="button"
+              (click)="submit()"
+              class="btn btn-success"
+              disableButtonDuringRequest
+            >
+              <i class="fa fa-check"></i>
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
