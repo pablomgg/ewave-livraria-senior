@@ -1,4 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+
+import { ModalDirective } from "ngx-bootstrap/modal";
+import { Subscription } from "rxjs";
+
 import { AutorService } from "./autor.service";
 
 @Component({
@@ -7,28 +13,90 @@ import { AutorService } from "./autor.service";
   styleUrls: ["./autor.component.scss"],
 })
 export class AutorComponent implements OnInit {
-  public autores: [] = [];
+  @ViewChild("modal") modal: ModalDirective;
 
-  constructor(private service: AutorService) {}
+  subscription: Subscription;
+
+  form: FormGroup;
+
+  autores: [] = [];
+  aggregateId: string;
+
+  editar = false;
+  submitted = false;
+
+  constructor(
+    private autorService: AutorService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.construiFormulario();
+  }
 
   ngOnInit(): void {
     this.obter();
   }
 
-  public obter() {
-    this.service.obter().subscribe(
-      (server) => {
-        this.autores = server;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  construiFormulario() {
+    this.form = this.formBuilder.group({
+      nome: [null, Validators.required],
+    });
   }
 
-  public criar() {}
+  obter() {
+    this.autorService.obter().subscribe((res) => (this.autores = res));
+  }
 
-  public alterar() {}
+  submit() {
+    if (this.form.valid) {
+      this.submitted = false;
+      this.salvar();
+    }
 
-  public inativarOuAtivar() {}
+    this.submitted = true;
+  }
+
+  salvar() {
+    const model = this.form.getRawValue();
+
+    const request = this.aggregateId
+      ? this.autorService.alterar(this.aggregateId, model)
+      : this.autorService.criar(model);
+
+    request.subscribe(() => {
+      this.obter();
+      this.fecharModal();
+    });
+  }
+
+  alterarSituacao({ aggregateId }) {
+    this.autorService.inativarOuAtivar(aggregateId).subscribe(() => {
+      this.obter();
+      this.fecharModal();
+    });
+  }
+
+  abrirModal(autor?: any) {
+    this.form.reset();
+
+    if (autor) {
+      const { aggregateId, nome } = autor;
+
+      this.aggregateId = aggregateId;
+
+      this.editar = true;
+      this.form.get("nome").setValue(nome);
+    } else {
+      this.editar = false;
+      this.form.reset();
+    }
+
+    this.modal.show();
+  }
+
+  fecharModal() {
+    this.submitted = false;
+    this.form.reset();
+    this.modal.hide();
+  }
 }
