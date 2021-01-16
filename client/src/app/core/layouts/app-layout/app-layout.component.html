@@ -3,10 +3,7 @@
     &nbsp; &nbsp;
     <img src="./assets/Vanilla-6.3s-280px.gif" class="imgHeader" />
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <i
-      matTooltip="Menu"
-      class="menuIcon fa fa-bars"
-    ></i>
+    <i matTooltip="Menu" class="menuIcon fa fa-bars" (click)="sidenav.toggle()"></i>
     <span class="toolbar-spacer"></span>
   </mat-toolbar>
 
@@ -86,7 +83,13 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="bodyConteudo">
-      <router-outlet></router-outlet>
+      <main class="main">
+        <div class="container-fluid">
+          <div class="main-content-panel">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </main>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>
