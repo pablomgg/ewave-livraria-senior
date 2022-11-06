@@ -7,7 +7,7 @@ RUN cd /app && npm set progress=false && npm set strict-ssl false && npm install
 
 COPY . /app
 
-RUN cd /app && npm run build -- --prod --output-path=./dist/out
+RUN cd /app && NODE_OPTIONS='--openssl-legacy-provider' npm run build -- --prod --output-path=./dist/out
 
 
 FROM nginx:alpine
